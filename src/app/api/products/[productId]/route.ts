@@ -21,7 +21,6 @@ export async function GET(
     name: dbProduct.name,
     description: dbProduct.description,
     price: dbProduct.price,
-    originalPrice: dbProduct.originalPrice,
     discount: dbProduct.discount,
     isFeatured: dbProduct.isFeatured || false,
     createdAt: new Date(dbProduct.createdAt),

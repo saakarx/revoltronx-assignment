@@ -25,19 +25,19 @@ export async function GET(req: NextRequest) {
   }
 
   const dbProducts = await ProductModel.find(queryFilter).sort(sortFilter);
-  const products = dbProducts.map(
+  const products: Product[] = dbProducts.map(
     product =>
       ({
-        id: product._id,
+        id: product.id,
         name: product.name,
         description: product.description,
+        images: product.images,
         price: product.price,
-        originalPrice: product.originalPrice,
         discount: product.discount,
         isFeatured: product.isFeatured,
         createdAt: new Date(product.createdAt),
         updatedAt: new Date(product.updatedAt),
-      } as Product)
+      } satisfies Product)
   );
 
   return Response.json(
@@ -52,9 +52,26 @@ export async function POST(req: Request) {
   const body = await req.json();
   const parsedBody = productCreateSchema.parse(body);
 
-  console.log(`src/app/api/products ~ POST : Line 28;`, parsedBody);
+  const dbProduct = await ProductModel.create({
+    name: parsedBody.name,
+    description: parsedBody.description,
+    images: [],
+    price: parsedBody.price,
+    discount: parsedBody.discount,
+    isFeatured: parsedBody.isFeatured,
+  });
 
-  const product = {};
+  const product: Product = {
+    id: dbProduct.id,
+    name: dbProduct.name,
+    description: dbProduct.description,
+    images: dbProduct.images,
+    price: dbProduct.price,
+    discount: dbProduct.discount,
+    isFeatured: dbProduct.isFeatured,
+    createdAt: dbProduct.createdAt,
+    updatedAt: dbProduct.updatedAt,
+  };
 
   return Response.json(
     { message: 'Success', product: product },

@@ -1,16 +1,28 @@
 import { z } from 'zod';
 
 import { productCreateSchema } from './schema/product';
-import { blogCreateSchema } from './schema/blog';
 
-export type Blog = z.infer<typeof blogCreateSchema> & {
+export type Blog = {
   id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  keywords: string[];
+  tags: string[];
+  isFeatured: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export type Product = z.infer<typeof productCreateSchema> & {
+export type Product = {
   id: string;
+  name: string;
+  description: string;
+  price: number;
+  discount: number;
+  isFeatured: boolean;
+  images: string[];
   createdAt: Date;
   updatedAt: Date;
 };

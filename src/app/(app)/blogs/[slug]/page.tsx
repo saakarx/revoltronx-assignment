@@ -17,8 +17,6 @@ async function BlogPage({
     options: { parseFrontmatter: true },
   });
 
-  console.log(metaData, params);
-
   return (
     <main className='p-10'>
       <Link

@@ -1,13 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowRightIcon, LoaderIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { productCreateSchema } from '@/schema/product';
 import {
   Form,
   FormControl,
@@ -16,10 +16,15 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
-function CreateProductPage() {
+import { createProduct } from '@/api/products';
+import { productCreateSchema } from '@/schema/product';
+
+function AdminCreateProductPage() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof productCreateSchema>>({
     resolver: zodResolver(productCreateSchema),
     defaultValues: {
@@ -31,8 +36,9 @@ function CreateProductPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof productCreateSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof productCreateSchema>) {
+    const res = await createProduct(values);
+    router.push('/admin/products');
   }
 
   return (
@@ -120,8 +126,20 @@ function CreateProductPage() {
           />
 
           <div>
-            <Button className='mt-3 rounded-xl shadow-lg' type='submit'>
-              Create Product <ArrowRightIcon />
+            <Button
+              className='mt-3 rounded-xl shadow-lg'
+              type='submit'
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? (
+                <span className='px-14'>
+                  <LoaderIcon className='animate-spin' />
+                </span>
+              ) : (
+                <>
+                  Create Product <ArrowRightIcon />
+                </>
+              )}
             </Button>
           </div>
         </form>
@@ -130,4 +148,4 @@ function CreateProductPage() {
   );
 }
 
-export default CreateProductPage;
+export default AdminCreateProductPage;

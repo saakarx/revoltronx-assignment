@@ -1,3 +1,6 @@
+import { z } from 'zod';
+
+import { productCreateSchema } from '../schema/product';
 import { getURI } from '.';
 
 import type {
@@ -30,4 +33,13 @@ export async function getFeaturedProducts(args?: { limit?: number }) {
       limit: (args?.limit || 4).toString(),
     })
   ).then(res => res.json() as Promise<MultipleProductsResponse>);
+}
+
+export async function createProduct(
+  values: z.infer<typeof productCreateSchema>
+) {
+  return fetch(getURI('/api/products'), {
+    method: 'POST',
+    body: JSON.stringify(values),
+  }).then(res => res.json() as Promise<SingleProductResponse>);
 }

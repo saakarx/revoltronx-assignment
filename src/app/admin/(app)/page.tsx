@@ -1,7 +1,7 @@
 function AdminDashboardPage() {
   return (
-    <main>
-      <h1>Welcome, Admin!</h1>
+    <main className='py-10 px-6'>
+      <h1 className='text-3xl font-semibold'>Welcome, Saakar!</h1>
 
       {/* ANALYTICS GO HERE */}
     </main>

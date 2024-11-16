@@ -22,7 +22,7 @@ export async function GET(
     title: dbBlog.title,
     excerpt: dbBlog.excerpt,
     content: dbBlog.content,
-    image: dbBlog.image,
+    // image: dbBlog.image,
     keywords: dbBlog.keywords,
     tags: dbBlog.tags,
     isFeatured: dbBlog.isFeatured || false,
