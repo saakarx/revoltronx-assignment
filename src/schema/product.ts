@@ -13,20 +13,14 @@ export const productCreateSchema = z.object({
       coerce: true,
       invalid_type_error: 'Must be a number',
     })
-    .lte(0, 'Must be greater than ZERO'),
+    .gt(0, 'Must be greater than ZERO'),
   discount: z
     .number({
       required_error: 'Required',
       coerce: true,
       invalid_type_error: 'Must be a number',
     })
-    .lt(0, 'Must not be negative'),
-  originalPrice: z
-    .number({
-      required_error: 'Required',
-      coerce: true,
-      invalid_type_error: 'Must be a number',
-    })
-    .lte(0, 'Must be greater than ZERO'),
+    .gte(0, 'Must not be negative')
+    .max(100, 'Cannot be more than 100'),
   isFeatured: z.boolean({ coerce: true, required_error: 'Required' }),
 });

@@ -8,7 +8,6 @@ const productSchema = new mongoose.Schema(
     images: [String],
     price: Number,
     discount: Number,
-    originalPrice: Number,
     isFeatured: Boolean,
   },
   { _id: true, timestamps: true }
