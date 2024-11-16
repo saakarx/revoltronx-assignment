@@ -5,6 +5,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Images } from './images';
 
 import { getProductById } from '@/api/products';
+import { Badge } from '@/components/ui/badge';
+import { WandSparklesIcon } from 'lucide-react';
 
 async function ProductPage({
   params,
@@ -37,6 +39,12 @@ async function ProductPage({
           />
 
           <div className='space-y-6'>
+            {product.isFeatured && (
+              <Badge className='gap-1 pointer-events-none'>
+                <WandSparklesIcon size={16} /> Featured
+              </Badge>
+            )}
+
             <h1 className='text-3xl font-bold'>{product.name}</h1>
             <p className='text-gray-600'>{product.description}</p>
 
@@ -44,14 +52,21 @@ async function ProductPage({
               <CardContent className='p-6'>
                 <div className='flex items-baseline mb-4'>
                   <span className='text-3xl font-bold text-primary'>
-                    ${product.price.toFixed(2)}
+                    $
+                    {(((100 - product.discount) * product.price) / 100).toFixed(
+                      2
+                    )}
                   </span>
-                  <span className='ml-2 text-lg text-gray-500 line-through'>
-                    ${product.originalPrice.toFixed(2)}
-                  </span>
-                  <span className='ml-2 text-sm text-green-600 font-semibold'>
-                    {product.discount}% OFF
-                  </span>
+                  {product.discount > 0 && (
+                    <>
+                      <span className='ml-2 text-lg text-gray-500 line-through'>
+                        ${product.price.toFixed(2)}
+                      </span>
+                      <span className='ml-2 text-sm text-green-600 font-semibold'>
+                        {product.discount}% OFF
+                      </span>
+                    </>
+                  )}
                 </div>
 
                 <p className='text-sm text-gray-500 mb-4'>

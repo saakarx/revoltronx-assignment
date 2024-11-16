@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
-import { Navbar } from '@/components/navbar';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,10 +25,7 @@ export default function RootLayout({
       style={{ fontFeatureSettings: `"case"` }}
       className={`bg-white dark:bg-black ${inter.variable} antialiased`}
     >
-      <body>
-        <Navbar />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
