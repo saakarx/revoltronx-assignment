@@ -12,7 +12,7 @@ async function BlogPage({
   const { blog } = await getBlogBySlug(params.slug);
   if (!blog) return notFound();
 
-  const { content, frontmatter: metaData } = await compileMDX({
+  const { content } = await compileMDX({
     source: blog.content,
     options: { parseFrontmatter: true },
   });

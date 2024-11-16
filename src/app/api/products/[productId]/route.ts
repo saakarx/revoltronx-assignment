@@ -16,13 +16,20 @@ export async function GET(
   const productId = (await params).productId;
 
   const dbProduct = await ProductModel.findById(productId);
+  if (dbProduct === null)
+    return Response.json(
+      { message: 'Not Found', product: null },
+      { status: 404 }
+    );
+
   const product: Product = {
-    id: dbProduct._id,
+    id: dbProduct.id,
     name: dbProduct.name,
     description: dbProduct.description,
     price: dbProduct.price,
     discount: dbProduct.discount,
     isFeatured: dbProduct.isFeatured || false,
+    images: [],
     createdAt: new Date(dbProduct.createdAt),
     updatedAt: new Date(dbProduct.updatedAt),
   };

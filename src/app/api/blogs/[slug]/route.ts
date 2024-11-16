@@ -16,8 +16,11 @@ export async function GET(
   const slug = (await params).slug;
 
   const dbBlog = await BlogModel.findOne({ slug: slug });
+  if (dbBlog === null)
+    return Response.json({ message: 'Not Found', blog: null }, { status: 404 });
+
   const blog: Blog = {
-    id: dbBlog._id,
+    id: dbBlog.id,
     slug: dbBlog.slug,
     title: dbBlog.title,
     excerpt: dbBlog.excerpt,

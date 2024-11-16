@@ -1,7 +1,3 @@
-import { z } from 'zod';
-
-import { productCreateSchema } from './schema/product';
-
 export type Blog = {
   id: string;
   slug: string;

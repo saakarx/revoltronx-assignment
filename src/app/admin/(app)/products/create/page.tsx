@@ -37,7 +37,7 @@ function AdminCreateProductPage() {
   });
 
   async function onSubmit(values: z.infer<typeof productCreateSchema>) {
-    const res = await createProduct(values);
+    await createProduct(values);
     router.push('/admin/products');
   }
 

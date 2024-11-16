@@ -38,7 +38,7 @@ function CreateBlogPage() {
   });
 
   async function onSubmit(values: z.infer<typeof blogCreateSchema>) {
-    const res = await createBlog(values);
+    await createBlog(values);
     router.push('/admin/blogs');
   }
 
